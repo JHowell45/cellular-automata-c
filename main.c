@@ -134,7 +134,8 @@ static int8_t get_ruleset_index(uint8_t left, uint8_t centre, uint8_t right) {
     if (left == 0 && centre == 0 && right == 0) {
         return 7;
     }
-    return -1;
+    printf("ERROR!! FAILED TO GET CORRECT INDEX!!!");
+    exit(1);
 }
 
 static bool get_ruleset_index_bit(uint8_t rulesetNumber, size_t index) {
