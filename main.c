@@ -29,11 +29,12 @@ Grid *new_grid(size_t x, size_t y);
 void free_grid(Grid *grid);
 static int8_t get_ruleset_index(uint8_t left, uint8_t centre, uint8_t right);
 static bool get_ruleset_index_bit(uint8_t rulesetNumber, size_t index);
+void update_next_row_grid(Grid *grid, size_t evalRow, uint8_t ruleset);
 
 static void UpdateFrame(Grid *grid, size_t evalRow, uint8_t ruleset);
 static void DrawGrid(Grid *grid);
 
-int main(int argc, char *argv) {
+int main(int argc, char *argv[]) {
     int ruleset = atoi(argv[1]);
     size_t evalRow = 0;
 

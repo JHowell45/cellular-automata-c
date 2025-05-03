@@ -1,3 +1,3 @@
-cd Build\Debug
-raylib-c.exe %1
+cd build/Debug
+cellular-automata.exe %1
 cd ../..
