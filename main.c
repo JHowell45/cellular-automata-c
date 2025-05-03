@@ -111,7 +111,8 @@ void update_next_row_grid(Grid *grid, size_t evalRow, uint8_t ruleset) {
         // } else {
         //     rulesetIndex = get_ruleset_index(grid->data[index-1], grid->data[index], grid->data[index + 1]);
         // }
-        bool rulesetBit = grid->data[index];
+        // bool rulesetBit = grid->data[index];
+        bool rulesetBit = false;
         if (!(index == startIndex || index == (startIndex + grid->xSize - 1))) {
             rulesetIndex = get_ruleset_index(grid->data[index-1], grid->data[index], grid->data[index + 1]);
             rulesetBit = get_ruleset_index_bit(ruleset, 7-rulesetIndex);
