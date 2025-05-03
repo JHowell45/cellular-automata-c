@@ -8,7 +8,7 @@
 #define WINDOW_WIDTH 1920
 #define WINDOW_HEIGHT 1080
 
-#define GRID_X_SIZE 321
+#define GRID_X_SIZE 319
 #define GRID_Y_SIZE 160
 
 // #define SQUARE_SIZE 51
@@ -98,11 +98,15 @@ void update_next_row_grid(Grid *grid, size_t evalRow, uint8_t ruleset) {
     if (evalRow >= grid->ySize - 1) {
         return;
     }
-    int startIndex = evalRow * grid->xSize;
-    grid->data[startIndex + grid->xSize] = grid->data[startIndex];
-    grid->data[startIndex + (2 * grid->xSize) - 1] = grid->data[startIndex + grid->xSize - 1];
+    size_t startIndex = evalRow * grid->xSize;
+    
+    // grid->data[startIndex + grid->xSize] = grid->data[startIndex];
+    // grid->data[startIndex + (2 * grid->xSize) - 1] = grid->data[startIndex + grid->xSize - 1];
+
+    grid->data[startIndex + grid->xSize] = false;
+    grid->data[startIndex + (2 * grid->xSize) - 1] = false;
     for (int i = 1; i < grid->xSize - 1; i++) {
-        int index = startIndex + i;
+        size_t index = startIndex + i;
         int8_t rulesetIndex = get_ruleset_index(grid->data[index-1], grid->data[index], grid->data[index + 1]);
         grid->data[index + grid->xSize] = get_ruleset_index_bit(ruleset, 7-rulesetIndex);
     }
