@@ -99,39 +99,12 @@ void update_next_row_grid(Grid *grid, size_t evalRow, uint8_t ruleset) {
         return;
     }
     int startIndex = evalRow * grid->xSize;
-    for (int i = 0; i < grid->xSize; i++) {
+    grid->data[startIndex + grid->xSize] = grid->data[startIndex];
+    grid->data[startIndex + (2 * grid->xSize) - 1] = grid->data[startIndex + grid->xSize - 1];
+    for (int i = 1; i < grid->xSize - 1; i++) {
         int index = startIndex + i;
-        // printf("Local Index: %d\n", index);
-        int8_t rulesetIndex;
-        // printf("Start Index: %d || Current Index: %d || Choice: ", startIndex, index);
-        // if (index == startIndex) {
-        //     rulesetIndex = get_ruleset_index(0, grid->data[index], grid->data[index + 1]);
-        // } else if (index == (startIndex + grid->xSize - 1)) {
-        //     rulesetIndex = get_ruleset_index(grid->data[index-1], grid->data[index], 0);
-        // } else {
-        //     rulesetIndex = get_ruleset_index(grid->data[index-1], grid->data[index], grid->data[index + 1]);
-        // }
-        // bool rulesetBit = grid->data[index];
-        bool rulesetBit = false;
-        if (!(index == startIndex || index == (startIndex + grid->xSize - 1))) {
-            rulesetIndex = get_ruleset_index(grid->data[index-1], grid->data[index], grid->data[index + 1]);
-            rulesetBit = get_ruleset_index_bit(ruleset, 7-rulesetIndex);
-        }
-
-        // rulesetBit = get_ruleset_index_bit(ruleset, 7-rulesetIndex);
-        // printf(
-        //     "Search Index: %d || Update Index: %d || Ruleset Index: %d || Ruleset Bit %d\n",
-        //     index,
-        //     index + grid->xSize,
-        //     rulesetIndex,
-        //     rulesetBit
-        // );
-        // printf("Ruleset Number: %d || Ruleset Bits: ", ruleset);
-        // for (int i = 0; i < 8; i++) {
-        //     printf("%d", get_ruleset_index_bit(ruleset, 7-i));
-        // }
-        // printf("\n");
-        grid->data[index + grid->xSize] = rulesetBit;
+        int8_t rulesetIndex = get_ruleset_index(grid->data[index-1], grid->data[index], grid->data[index + 1]);
+        grid->data[index + grid->xSize] = get_ruleset_index_bit(ruleset, 7-rulesetIndex);
     }
     evalRow++;
 }
